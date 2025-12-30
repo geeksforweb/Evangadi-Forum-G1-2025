@@ -8,6 +8,11 @@ const dbconnection = mysql.createPool({
     connectionLimit: 10
 });
 
+
+
+
+
+
 // Test the connection
 async function testConnection() {
     try {
