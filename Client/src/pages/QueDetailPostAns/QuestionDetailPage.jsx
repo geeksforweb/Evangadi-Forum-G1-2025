@@ -11,9 +11,13 @@ const QuestionDetailPage = () => {
   const { question_id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AppState);
-  
+
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const LIMIT = 5;
 
   // Auth
   useEffect(() => {
@@ -27,15 +31,24 @@ const QuestionDetailPage = () => {
     });
   }, [question_id]);
 
-  // Fetch all answers for that question.
-  const fetchAnswers = async () => {
-    const res = await instance.get(`/answers/${question_id}`);
+  // Reset page when question changes
+  useEffect(() => {
+    setPage(1);
+  }, [question_id]);
+
+  // Fetch answers (paginated)
+  const fetchAnswers = async (pageNumber = page) => {
+    const res = await instance.get(
+      `/answers/${question_id}?page=${pageNumber}&limit=${LIMIT}`,
+    );
+
     setAnswers(res.data.answers || []);
+    setTotalPages(res.data.totalPages);
   };
 
   useEffect(() => {
-    fetchAnswers();
-  }, [question_id]);
+    fetchAnswers(page);
+  }, [question_id, page]);
 
   if (!question) return <p>Loading...</p>;
 
@@ -46,12 +59,20 @@ const QuestionDetailPage = () => {
       <hr />
       <h2 className={styles.sectionTitle}>Answer From The Community</h2>
       <hr />
+      <AnswerList
+        answers={answers}
+        refreshAnswers={() => fetchAnswers(page)}
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+      />
 
-      <AnswerList answers={answers} refreshAnswers={fetchAnswers} />
-
-      <PostAnswerForm question_id={question_id} refreshAnswers={fetchAnswers} />
+      <PostAnswerForm
+        question_id={question_id}
+        refreshAnswers={() => fetchAnswers(page)}
+      />
     </div>
   );
-};
+};;;
 
 export default QuestionDetailPage;

@@ -52,14 +52,16 @@ const SignIn = () => {
       {error && <p className={styles.error}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <input
-          className={styles.input}
-          type="email"
-          name="email"
-          placeholder="Email address"
-          value={formData.email}
-          onChange={handleChange}
-        />
+        <div className={styles.formGroup}>
+          <input
+            className={styles.input}
+            type="email"
+            name="email"
+            placeholder="Email address"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
 
         <div className={styles.passwordGroup}>
           <input
@@ -76,7 +78,7 @@ const SignIn = () => {
             onClick={() => setShowPassword((prev) => !prev)}
             title={showPassword ? "Hide password" : "Show password"}
           >
-            {showPassword ? "🙈" : "👁"}
+            {showPassword ? "🙈" : "👁️"}
           </span>
         </div>
         {/* forgot password */}

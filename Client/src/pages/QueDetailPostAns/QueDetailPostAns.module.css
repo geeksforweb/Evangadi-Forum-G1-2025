@@ -120,3 +120,43 @@ button {
   cursor: pointer;
   border-radius: 4px;
 }
+/* PAGINATION CONTAINER */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 30px;
+}
+
+/* PAGE TEXT */
+.pagination span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* BUTTON STYLE */
+.pagination button {
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  background-color: #4f6df5; /* nice blue */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* HOVER */
+.pagination button:hover:not(:disabled) {
+  background-color: #3c56d8;
+}
+
+/* DISABLED */
+.pagination button:disabled {
+  background-color: #bfc7f5;
+  cursor: not-allowed;
+}
+
