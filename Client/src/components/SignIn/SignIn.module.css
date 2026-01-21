@@ -42,7 +42,7 @@
 .input {
   width: 100%;
   padding: 14px;
-  margin-bottom: 18px;
+  padding-right: 40px;
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 14px;
@@ -58,8 +58,11 @@
 /* Password group */
 .passwordGroup {
   position: relative;
+  margin-bottom: 18px;
 }
-
+.formGroup {
+  margin-bottom: 18px;
+}
 .eye {
   position: absolute;
   right: 14px;
@@ -67,7 +70,10 @@
   transform: translateY(-50%);
   cursor: pointer;
   opacity: 0.6;
+  display: flex;
+  align-items: center;
 }
+
 
 /* Forgot password */
 .forgot {

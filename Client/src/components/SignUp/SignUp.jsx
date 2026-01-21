@@ -158,7 +158,10 @@ const Register = () => {
       </form>
 
       <p className={Classes.loginText}>
-        Already have an account? <Link to="/login">Login</Link>
+        Already have an account?
+        <Link to="/login" className={Classes.signInLink}>
+          Login
+        </Link>
       </p>
     </section>
   );

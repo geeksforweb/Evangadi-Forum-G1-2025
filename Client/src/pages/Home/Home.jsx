@@ -10,28 +10,38 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  async function fetchQuestions(searchTerm = "") {
+  const LIMIT = 5;
+
+  async function fetchQuestions(searchTerm = "", pageNumber = 1) {
     try {
-      const { data } = await instance.get(`/questions?search=${searchTerm}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const { data } = await instance.get(
+        `/questions?search=${searchTerm}&page=${pageNumber}&limit=${LIMIT}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
       setQuestions(data.questions);
+      setTotalPages(data.totalPages);
     } catch (error) {
       console.error("Error fetching questions:", error);
     }
   }
 
   useEffect(() => {
-    fetchQuestions();
-  }, []);
+    fetchQuestions(search, page);
+  }, [page]);
 
   function handleSearch(e) {
     const value = e.target.value;
     setSearch(value);
-    fetchQuestions(value);
+    setPage(1); // reset to first page
+    fetchQuestions(value, 1);
   }
 
   return (
@@ -90,6 +100,24 @@ const Home = () => {
               No results found.
             </p>
           )}
+        </div>
+
+        {/* PAGINATION CONTROLS */}
+        <div className={styles.pagination}>
+          <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
+            Previous
+          </button>
+
+          <span>
+            Page {page} of {totalPages}
+          </span>
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
