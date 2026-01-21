@@ -5,6 +5,20 @@ const { StatusCodes } = require("http-status-codes");
 async function getAnswers(req, res) {
   const { question_id } = req.params;
 
+  // Read page & limit from query
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+
+  // Calculate offset
+  const offset = (page - 1) * limit;
+
+  // Get total count
+  const [[{ total }]] = await dbConnection.query(
+    `SELECT COUNT(*) AS total FROM answers WHERE question_id = ?`,
+    [question_id],
+  );
+
+  // Get paginated answers
   const [answers] = await dbConnection.query(
     `
     SELECT 
@@ -16,12 +30,16 @@ async function getAnswers(req, res) {
     INNER JOIN users
       ON answers.user_id = users.user_id
     WHERE answers.question_id = ?
+    ORDER BY answers.answer_id DESC
+    LIMIT ? OFFSET ?
     `,
-    [question_id]
+    [question_id, limit, offset],
   );
-
   res.status(StatusCodes.OK).json({
-    count: answers.length,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit),
     answers,
   });
 }

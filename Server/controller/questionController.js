@@ -4,50 +4,57 @@ const { StatusCodes } = require("http-status-codes");
 
 // 1. GET ALL QUESTIONS (with optional search)
 async function getAllQuestions(req, res) {
-  const { search } = req.query;
-
-  let query = `
-    SELECT 
-      questions.question_id,
-      questions.title,
-      questions.description,
-      questions.tags,
-      questions.user_id,
-      users.username,
-      COUNT(answers.answer_id) AS answerCount
-    FROM questions
-    INNER JOIN users 
-      ON questions.user_id = users.user_id
-    LEFT JOIN answers 
-      ON questions.question_id = answers.question_id
-  `;
-
-  let values = [];
-
-  if (search) {
-    query += `
-      WHERE questions.title LIKE ? 
-      OR questions.description LIKE ?
-    `;
-    values.push(`%${search}%`, `%${search}%`);
-  }
-
-  query += `
-    GROUP BY questions.question_id
-    ORDER BY questions.question_id DESC
-  `;
-
   try {
-    const [questions] = await dbConnection.query(query, values);
-    res.status(StatusCodes.OK).json({
-      count: questions.length,
+    const search = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const offset = (page - 1) * limit;
+
+    // Paginated questions
+    const [questions] = await dbConnection.query(
+      `
+      SELECT 
+        q.question_id,
+        q.title,
+        q.description,
+        q.tags,
+        q.user_id,
+        u.username,
+        COUNT(a.answer_id) AS answerCount
+      FROM questions q
+      INNER JOIN users u ON q.user_id = u.user_id
+      LEFT JOIN answers a ON q.question_id = a.question_id
+      WHERE q.title LIKE ? OR q.description LIKE ?
+      GROUP BY q.question_id
+      ORDER BY q.question_id DESC
+      LIMIT ? OFFSET ?
+      `,
+      [`%${search}%`, `%${search}%`, limit, offset]
+    );
+
+    // Total count (used for pagination UI)
+    const [[{ total }]] = await dbConnection.query(
+      `
+      SELECT COUNT(*) AS total
+      FROM questions
+      WHERE title LIKE ? OR description LIKE ?
+      `,
+      [`%${search}%`, `%${search}%`]
+    );
+
+    res.status(200).json({
       questions,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
     });
   } catch (error) {
-    console.error(error.message);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Server error" });
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 }
+
 
 // 2. GET SINGLE QUESTION
 async function getSingleQuestion(req, res) {
