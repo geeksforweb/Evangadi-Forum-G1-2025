@@ -36,7 +36,7 @@ const Header = () => {
         {/* Desktop Navigation Links */}
         <div className={classes.header_links}>
           <Link to="/" className={classes.nav_link}>Home</Link>
-          <Link to="/how-it-works" className={classes.nav_link}>How it works</Link>
+          <Link to="" className={classes.nav_link}>How it works</Link>
           
           {token ? (
             <button className={classes.header_button} onClick={handleLogout}>

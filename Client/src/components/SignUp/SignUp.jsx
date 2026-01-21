@@ -11,6 +11,7 @@ const Register = () => {
   const lastNameDom = useRef();
   const emailDom = useRef();
   const passwordDom = useRef();
+  const genderDom = useRef();
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
@@ -23,6 +24,7 @@ const Register = () => {
     const lastname = lastNameDom.current.value.trim();
     const email = emailDom.current.value.trim();
     const password = passwordDom.current.value;
+    const gender = genderDom.current.value;
 
     if (!username) errors.username = "Username is required";
     else if (username.length < 3)
@@ -44,6 +46,8 @@ const Register = () => {
     else if (password.length < 6)
       errors.password = "Password must be at least 6 characters";
 
+    if (!gender) errors.gender = "Please select your gender";
+
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -59,7 +63,9 @@ const Register = () => {
         lastName: lastNameDom.current.value,
         email: emailDom.current.value,
         password: passwordDom.current.value,
+        gender: genderDom.current.value,
       });
+
       navigate("/login");
     } catch (error) {
       setErrors({
@@ -78,7 +84,9 @@ const Register = () => {
         </Link>
       </p>
 
-      {errors.server && <p className={Classes.serverError}>{errors.server}</p>}
+      {errors.server && (
+        <p className={Classes.serverError}>{errors.server}</p>
+      )}
 
       <form className={Classes.registerForm} onSubmit={handleSubmit}>
         <input
@@ -92,25 +100,31 @@ const Register = () => {
         )}
 
         <div className={Classes.nameRow}>
-          <input
-            type="text"
-            placeholder="First name"
-            ref={firstNameDom}
-            className={errors.firstname ? Classes.inputError : ""}
-          />
-          <input
-            type="text"
-            placeholder="Last name"
-            ref={lastNameDom}
-            className={errors.lastname ? Classes.inputError : ""}
-          />
+          <div style={{ width: "100%" }}>
+            <input
+              type="text"
+              placeholder="First name"
+              ref={firstNameDom}
+              className={errors.firstname ? Classes.inputError : ""}
+            />
+          </div>
+          <div style={{ width: "100%" }}>
+            <input
+              type="text"
+              placeholder="Last name"
+              ref={lastNameDom}
+              className={errors.lastname ? Classes.inputError : ""}
+            />
+          </div>
         </div>
-        {errors.firstname && (
-          <small className={Classes.error}>{errors.firstname}</small>
-        )}
-        {errors.lastname && (
-          <small className={Classes.error}>{errors.lastname}</small>
-        )}
+        <div className={Classes.nameRow}>
+           {errors.firstname && (
+            <small className={Classes.error} style={{ width: "100%" }}>{errors.firstname}</small>
+          )}
+          {errors.lastname && (
+            <small className={Classes.error} style={{ width: "100%" }}>{errors.lastname}</small>
+          )}
+        </div>
 
         <input
           type="email"
@@ -120,6 +134,21 @@ const Register = () => {
         />
         {errors.email && (
           <small className={Classes.error}>{errors.email}</small>
+        )}
+
+        <select
+          ref={genderDom}
+          className={`${Classes.genderSelect} ${errors.gender ? Classes.inputError : ""}`}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Select Gender
+          </option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        {errors.gender && (
+          <small className={Classes.error}>{errors.gender}</small>
         )}
 
         <div className={Classes.passwordWrapper}>
@@ -142,11 +171,11 @@ const Register = () => {
 
         <p className={Classes.agreement}>
           I agree to the{" "}
-          <a href="/privacy-policy" target="_blank">
+          <a href="/privacy-policy" target="_blank" rel="noreferrer">
             privacy policy
           </a>{" "}
           and{" "}
-          <a href="/terms-of-service" target="_blank">
+          <a href="/terms-of-service" target="_blank" rel="noreferrer">
             terms of service
           </a>
           .

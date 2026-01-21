@@ -5,28 +5,34 @@ const { StatusCodes } = require("http-status-codes");
 async function getAnswers(req, res) {
   const { question_id } = req.params;
 
-  const [answers] = await dbConnection.query(
-    `
-    SELECT 
-      answers.answer_id,
-      answers.answer,
-      answers.user_id,
-      users.username
-    FROM answers
-    INNER JOIN users
-      ON answers.user_id = users.user_id
-    WHERE answers.question_id = ?
-    `,
-    [question_id]
-  );
+  try {
+    const [answers] = await dbConnection.query(
+      `
+      SELECT 
+        answers.answer_id,
+        answers.answer,
+        answers.user_id,
+        users.username,
+        users.gender 
+      FROM answers
+      INNER JOIN users
+        ON answers.user_id = users.user_id
+      WHERE answers.question_id = ?
+      `,
+      [question_id]
+    );
 
-  res.status(StatusCodes.OK).json({
-    count: answers.length,
-    answers,
-  });
+    res.status(StatusCodes.OK).json({
+      count: answers.length,
+      answers,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Server error" });
+  }
 }
 
-  // POST ANSWER
+// POST ANSWER
 async function postAnswer(req, res) {
   const { question_id, answer } = req.body;
   const user_id = req.user.user_id; // from auth middleware
@@ -41,7 +47,7 @@ async function postAnswer(req, res) {
     // Insert answer
     await dbConnection.query(
       `INSERT INTO answers (question_id, user_id, answer)
-     VALUES (?, ?, ?)`,
+       VALUES (?, ?, ?)`,
       [question_id, user_id, answer]
     );
 
@@ -58,7 +64,6 @@ async function postAnswer(req, res) {
 }
 
 // EDIT ANSWER
-// PUT /api/answers/:answer_id
 async function editAnswer(req, res) {
   const { answer_id } = req.params;
   const { answer } = req.body;
@@ -96,7 +101,6 @@ async function editAnswer(req, res) {
 }
 
 // DELETE ANSWER
-// DELETE /api/answers/:answer_id
 async function deleteAnswer(req, res) {
   const { answer_id } = req.params;
   const user_id = req.user.user_id;

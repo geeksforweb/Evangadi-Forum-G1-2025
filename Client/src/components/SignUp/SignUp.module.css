@@ -17,21 +17,22 @@
 }
 
 .signInLink {
-  color: #f97316;
+  color: #f97316; /* Keeping orange for the link to sign in */
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .serverError {
-  color: #f97316;
+  color: #d93025; /* Changed to Red */
   text-align: center;
   margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .registerForm {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 .nameRow {
@@ -39,17 +40,30 @@
   gap: 10px;
 }
 
-input {
-  padding: 10px;
+input, .genderSelect {
+  padding: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
   width: 100%;
   box-sizing: border-box;
+  background-color: #fff;
+  outline: none;
+}
+
+/* Styling the select specifically to match inputs */
+.genderSelect {
+  cursor: pointer;
+  appearance: none; /* Removes default browser styling */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 12px auto;
 }
 
 .inputError {
-  border-color: #f97316;
+  border-color: #d93025 !important; /* Changed to Red */
+  background-color: #fff8f7;
 }
 
 .passwordWrapper {
@@ -58,34 +72,38 @@ input {
 
 .togglePassword {
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  font-size: 18px;
 }
 
 .error {
-  color: #f97316;
+  color: #d93025; /* Changed to Red */
   font-size: 12px;
+  margin-top: -8px;
+  margin-left: 2px;
 }
 
 .agreement {
   font-size: 12px;
   text-align: center;
+  color: #666;
 }
 
 .agreement a {
-  color: #f97316;
+  color: #4f46e5;
   text-decoration: none;
 }
 
 .submitBtn {
   background-color: #4f46e5;
   color: white;
-  padding: 12px;
+  padding: 14px;
   border: none;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
   transition: background-color 0.2s ease;

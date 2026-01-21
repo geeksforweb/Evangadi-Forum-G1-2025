@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
-import avatar from "../../assets/avatar.png";
+// ✅ Import BOTH avatars
+import maleAvatar from "../../assets/avatar.png";
+import femaleAvatar from "../../assets/female_avater.jpg";
 import styles from "./QueDetailPostAns.module.css";
 import instance from "../../axiosConfig";
 import { AppState } from "../../App";
@@ -60,10 +62,15 @@ const AnswerList = ({ answers, refreshAnswers }) => {
     const isOwner = user && user.userId === ans.user_id;
     const isEditing = editingId === ans.answer_id;
 
+    // ✅ LOGIC TO CHOOSE THE CORRECT AVATAR FOR EACH ANSWER
+    // ans.gender comes from the SQL JOIN we added to your backend
+    const responderAvatar = ans.gender === "female" ? femaleAvatar : maleAvatar;
+
     return (
       <div className={styles.answerWrapper} key={ans.answer_id}>
         <div className={styles.answerLeft}>
-          <img src={avatar} className={styles.avatar} alt="avatar" />
+          {/* ✅ Use the calculated responderAvatar here */}
+          <img src={responderAvatar} className={styles.avatar} alt="avatar" />
           <p className={styles.username}>{ans.username}</p>
         </div>
         <div className={styles.answerRight}>

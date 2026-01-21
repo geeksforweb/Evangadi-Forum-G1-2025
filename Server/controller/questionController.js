@@ -14,6 +14,7 @@ async function getAllQuestions(req, res) {
       questions.tags,
       questions.user_id,
       users.username,
+      users.gender, 
       COUNT(answers.answer_id) AS answerCount
     FROM questions
     INNER JOIN users 
@@ -55,7 +56,7 @@ async function getSingleQuestion(req, res) {
 
   try {
     const [[question]] = await dbConnection.query(
-      `SELECT questions.*, users.username 
+      `SELECT questions.*, users.username, users.gender 
        FROM questions 
        INNER JOIN users ON questions.user_id = users.user_id 
        WHERE questions.question_id = ?`,

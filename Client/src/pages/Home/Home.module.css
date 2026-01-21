@@ -5,20 +5,19 @@
   font-family: Arial, sans-serif;
 }
 
-/* Page Container */
 .home-container {
-    margin-top:50px;
+  margin-top: 50px;
   width: 100%;
   min-height: 100vh;
   background: #fff;
 }
 
-/* Main Content */
 .content {
   padding: 40px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* Top Bar */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -33,18 +32,26 @@
   padding: 10px 22px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .welcome {
   font-size: 18px;
-  font-weight: normal;
 }
 
 .welcome span {
   font-weight: bold;
 }
 
-/* Questions */
+.search {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
 .questions-title {
   font-size: 22px;
   margin-bottom: 20px;
@@ -52,14 +59,15 @@
 
 .question-list {
   border-top: 1px solid #ddd;
+  min-height: 200px; /* Ensures space for the list */
 }
 
-/* Question Item */
 .question-item {
   display: flex;
   align-items: center;
   padding: 18px 0;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
 }
 
 .avatar-img {
@@ -67,8 +75,7 @@
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  margin: auto;
-  display: block;
+  margin-right: 20px;
 }
 
 .question-text {
@@ -78,21 +85,66 @@
 .question-text p {
   font-size: 16px;
   margin-bottom: 5px;
+  color: #333;
 }
 
 .question-text small {
-  color: #555;
+  color: #777;
 }
 
 .arrow {
   font-size: 28px;
-  color: #333;
-  cursor: pointer;
+  color: #ccc;
 }
-.search {
+
+.noResults {
+  padding: 40px;
+  text-align: center;
+  color: #999;
+}
+
+/* --- PAGINATION STYLING --- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 50px 0; /* Space above and below */
+  padding: 20px;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 25px;
-  border: 1px solid #ccc;
+}
+
+.pNumber, .pArrow {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  font-size: 16px;
+  color: #4f6df5;
+  cursor: pointer;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.pNumber:hover:not(.pActive) {
+  background-color: #e9ecef;
+}
+
+.pActive {
+  background-color: #4f6df5 !important;
+  color: white !important;
+  border-color: #4f6df5;
+  font-weight: bold;
+  /* Making it circular like the screenshot */
+  border-radius: 50%;
+}
+
+.pArrow:disabled {
+  color: #ccc;
+  border-color: #eee;
+  background-color: #fff;
+  cursor: not-allowed;
 }
