@@ -1,6 +1,8 @@
 require("dotenv").config();
+// nodemailer Uses Gmail to send emails
 const nodemailer = require("nodemailer");
 
+// transporter knows HOW to send emails and FROM WHERE.
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {

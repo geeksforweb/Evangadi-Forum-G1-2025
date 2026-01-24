@@ -23,7 +23,7 @@
 .signInSection {
   flex: 1;
   margin-left: 55px;
-  padding: 15px 25px;
+  padding: 15px auto;
   background-color: #ffffff;
 }
 

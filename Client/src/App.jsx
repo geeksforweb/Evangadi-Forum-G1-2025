@@ -11,7 +11,7 @@ import Footer from "./components/footer/Footer";
 import QuestionDetailPage from './pages/QueDetailPostAns/QuestionDetailPage'
 import ForgotPassword from './pages/Forgotpassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
-
+import "./app.css"
 /* EXPORT THE CONTEXT */
 export const AppState = createContext();
 

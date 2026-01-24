@@ -5,9 +5,7 @@ const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
 const sendEmail = require("../utils/email");
 
-/**
- * REGISTER USER
- */
+  // REGISTER USER
 async function createUser(req, res) {
   const { userName, firstName, lastName, email, password } = req.body;
 
@@ -16,49 +14,12 @@ async function createUser(req, res) {
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "All fields required" });
   }
-  // password is a string (coming from req.body)
-  // .length is a built-in property of strings
-  // It returns the number of characters in the string
+
   if (password.length < 8) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json({ msg: "Password must be 8+ chars" });
   }
-
-  //Example query to get all admin users
-  // const result = await dbConnection.query("SELECT user_id, email FROM users WHERE role = ?",["admin"]);
-
-  //Sample response from database
-  // result = [
-  //   [
-  //     { user_id: 1, email: "a@gmail.com" },
-  //     { user_id: 3, email: "b@gmail.com" },
-  //     { user_id: 7, email: "c@gmail.com" },
-  //   ],
-  //   [
-  //     /* fields metadata */
-  //   ],
-  // ];
-  //ONE array (rows) containing multiple objects
-  // Each object = one database row
-  // rows = [
-  //   { user_id: 1, email: "a@gmail.com" },
-  //   { user_id: 3, email: "b@gmail.com" },
-  //   { user_id: 7, email: "c@gmail.com" },
-  // ];
-  // TWO array (fields) containing metadata about the columns
-  // result=[
-  // [ /* rows */ ],
-  // [ /* fields metadata */ ]
-  // ];
-
-  //Destructuring to get the first array (rows) from result
-  // const [rows, fields] = await dbConnection.query("SELECT user_id, email FROM users WHERE role = ?",["admin"]);
-  //Destructuring to get the first object (first row) from rows
-  // firstUser = rows[0];
-  // const [[firstUser]] = await dbConnection.query("SELECT user_id, email FROM users WHERE role = ?",["admin"]);
-  // firstUser = { user_id: 1, email: "a@gmail.com" };
-
   const [[existingUser]] = await dbConnection.query(
     "SELECT user_id FROM users WHERE email = ?",
     [email]
@@ -97,28 +58,6 @@ async function login(req, res) {
       .status(StatusCodes.UNAUTHORIZED)
       .json({ msg: "Invalid credentials" });
   }
-  //What dbConnection.query() returns
-  //MySQL (mysql2) always returns:
-  // [rows, fields];
-  //Case: User EXISTS
-  //[
-  //  [
-  //     {
-  //       user_id: 5,
-  //       username: "evangadiG1User",
-  //       password: "$2a$10$abcxyz..."
-  //     }
-  //   ],
-  //   [ /* fields metadata */ ]
-  // ]
-
-  // const [[user]] = await dbConnection.query(...);
-  //This is equivalent to:
-  // const result = await dbConnection.query(...);
-  // const rows = result[0]; -----> First array
-  // const user = rows[0]; -----> First object in the first array
-  //so user = { user_id: 5, username: "evangadiG1User", password: "$2a$10$abcxyz..." }
-
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
     return res
@@ -197,7 +136,7 @@ async function forgotPassword(req, res) {
       .status(StatusCodes.OK)
       .json({ msg: "Password reset link sent to your email" });
   } catch (error) {
-    console.error("❌ forgotPassword error:", error.message);
+    console.error(" forgotPassword error:", error.message);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ msg: "Something went wrong" });
@@ -252,9 +191,7 @@ async function resetPassword(req, res) {
       .json({ msg: "Something went wrong" });
   }
 }
-/**
- * CHECK USER
- */
+//  CHECK USER
 async function checkUser(req, res) {
   const user_id = req.user.user_id;
   const username = req.user.username;
