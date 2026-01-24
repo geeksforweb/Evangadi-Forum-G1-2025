@@ -1,16 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 /* Page Container */
 .home-container {
-    margin-top:50px;
+  padding-top: 120px;
+   min-height: 100vh;
   width: 100%;
-  min-height: 100vh;
   background: #fff;
+}
+
+.content {
+  padding: 40px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Main Content */
@@ -117,4 +116,5 @@
   background-color: #ccc;
   cursor: not-allowed;
 }
+
 
