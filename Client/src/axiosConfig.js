@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://e.fenetahmed.com/api",
 });
 // Automatically attach token
 instance.interceptors.request.use(
