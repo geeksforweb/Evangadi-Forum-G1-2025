@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
 const sendEmail = require("../utils/email");
 
-  // REGISTER USER
+// REGISTER USER
 async function createUser(req, res) {
   const { userName, firstName, lastName, email, password } = req.body;
 
@@ -22,13 +22,14 @@ async function createUser(req, res) {
   }
   const [[existingUser]] = await dbConnection.query(
     "SELECT user_id FROM users WHERE email = ?",
-    [email]
+    [email],
   );
 
   if (existingUser) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .json({ msg: "Email already exists" });
+      .json({ msg: "This profile already exists. Please try again" });
+      // .json({ msg: "Email already exists" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -37,7 +38,7 @@ async function createUser(req, res) {
     `INSERT INTO users 
      (username, first_name, last_name, email, password)
      VALUES (?, ?, ?, ?, ?)`,
-    [userName, firstName, lastName, email, hashedPassword]
+    [userName, firstName, lastName, email, hashedPassword],
   );
 
   res.status(StatusCodes.CREATED).json({ msg: "User registered successfully" });
@@ -50,7 +51,7 @@ async function login(req, res) {
   const { email, password } = req.body;
   const [[user]] = await dbConnection.query(
     "SELECT user_id, username, password FROM users WHERE email = ?",
-    [email]
+    [email],
   );
 
   if (!user) {
@@ -70,7 +71,7 @@ async function login(req, res) {
     process.env.JWT_SECRET,
     {
       expiresIn: "1d",
-    }
+    },
   );
 
   res.status(StatusCodes.OK).json({
@@ -96,7 +97,7 @@ async function forgotPassword(req, res) {
     // Check if email exists inside db
     const [rows] = await dbConnection.execute(
       "SELECT user_id, username FROM users WHERE email = ?",
-      [email]
+      [email],
     );
 
     if (rows.length === 0) {
@@ -112,18 +113,21 @@ async function forgotPassword(req, res) {
     // Save token & expiry in DB
     await dbConnection.execute(
       "UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?",
-      [token, resetTokenExpiry, email]
+      [token, resetTokenExpiry, email],
     );
 
     // Create reset link (use FRONTEND_URL env variable or default to localhost:5173 for Vite)
-    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    // const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+
+    const frontendUrl = "https://evangadiforum.gashawtech.com";
+
     const resetLink = `${frontendUrl}/reset-password/${token}`;
 
     // Send email
     const emailSent = await sendEmail(
       email,
       "Password Reset Request",
-      `Hello ${user.username},\n\nClick this link to reset your password (valid 1 hour):\n\n${resetLink}\n\nIf you did not request this, ignore this email.`
+      `Hello ${user.username},\n\nClick this link to reset your password (valid 1 hour):\n\n${resetLink}\n\nIf you did not request this, ignore this email.`,
     );
 
     if (!emailSent) {
@@ -164,7 +168,7 @@ async function resetPassword(req, res) {
     // Find user with valid token
     const [rows] = await dbConnection.query(
       "SELECT user_id FROM users WHERE reset_token = ? AND reset_token_expiry > NOW()",
-      [token]
+      [token],
     );
 
     if (rows.length === 0) {
@@ -180,7 +184,7 @@ async function resetPassword(req, res) {
       `UPDATE users
        SET password = ?, reset_token = NULL, reset_token_expiry = NULL
        WHERE reset_token = ?`,
-      [hashedPassword, token]
+      [hashedPassword, token],
     );
 
     res.status(StatusCodes.OK).json({ msg: "Password reset successful" });
