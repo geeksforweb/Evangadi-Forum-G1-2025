@@ -80,7 +80,7 @@ const Home = () => {
                 onClick={() => navigate(`/questions/${q.question_id}`)}
               >
                 <img
-                  src={avatar}
+                  src={`https://ui-avatars.com/api/?name=${q.username}&background=random&color=fff`}
                   alt="avatar"
                   className={styles["avatar-img"]}
                 />

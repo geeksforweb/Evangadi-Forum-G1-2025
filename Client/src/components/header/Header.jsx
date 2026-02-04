@@ -36,15 +36,16 @@ const Header = () => {
         {/* Desktop Navigation Links */}
         <div className={classes.header_links}>
           <Link to="/" className={classes.nav_link}>Home</Link>
-          <Link to="/how-it-works" className={classes.nav_link}>How it works</Link>
+          <Link to="/Instruction" className={classes.nav_link}>How it works</Link>
+          {/* <Link to="/how-it-works" className={classes.nav_link}>How it works</Link> */}
           
           {token ? (
             <button className={classes.header_button} onClick={handleLogout}>
-              LOG OUT
+              Log Out
             </button>
           ) : (
             <Link to="/login" className={classes.header_button_link}>
-              <button className={classes.header_button}>SIGN IN</button>
+              <button className={classes.header_button}>Log In</button>
             </Link>
           )}
         </div>
@@ -64,21 +65,24 @@ const Header = () => {
           <Link to="/" className={classes.mobile_nav_link} onClick={closeMenu}>
             Home
           </Link>
-          <Link to="/how-it-works" className={classes.mobile_nav_link} onClick={closeMenu}>
+            <Link to="#" className={classes.mobile_nav_link} onClick={closeMenu}>
             How it works
           </Link>
+          {/* <Link to="/how-it-works" className={classes.mobile_nav_link} onClick={closeMenu}>
+            How it works
+          </Link> */}
           
           {token ? (
             <button 
               className={`${classes.header_button} ${classes.mobile_nav_button}`} 
               onClick={handleLogout}
             >
-              LOG OUT
+              Log Out
             </button>
           ) : (
             <Link to="/login" className={classes.header_button_link} onClick={closeMenu}>
               <button className={`${classes.header_button} ${classes.mobile_nav_button}`}>
-                SIGN IN
+                Log In
               </button>
             </Link>
           )}

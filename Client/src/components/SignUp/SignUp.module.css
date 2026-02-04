@@ -1,55 +1,79 @@
+
+
 .registerSection {
-  max-width: 400px;
-  margin: 10px auto;
-  padding: 20px;
+  width: 100%;
+  max-width: 520px; 
+  /* Reduced vertical margin from 40px to 20px */
+  margin: 50px auto;
+  /* Reduced top/bottom padding to 35px (was 60px) */
+  padding: 15px 30px; 
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   font-family: Arial, sans-serif;
 }
 
+/* Keep other classes (h2, input, nameRow, etc.) exactly the same */
+
 .registerSection h2 {
   text-align: center;
-  margin-bottom: 5px;
+  font-size: 28px; /* Larger Title */
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
 }
 
 .signInPrompt {
   text-align: center;
-  font-size: 14px;
-  margin-bottom: 20px;
+  font-size: 16px; /* Larger text */
+  margin-bottom: 35px;
+  color: #666;
 }
 
 .signInLink {
-  color: #f97316;
+  color: #f28b25; /* Standard Evangadi Orange */
   text-decoration: none;
   font-weight: 500;
 }
 
 .serverError {
-  color: #f97316;
+  color: #d9534f;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-size: 15px;
 }
 
 .registerForm {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px; /* More space between rows */
 }
 
 .nameRow {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
+/* Taller and larger inputs */
 input {
-  padding: 10px;
+  padding: 16px 20px; 
   border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  border: 1px solid #ddd;
+  font-size: 16px; /* Increased font size */
   width: 100%;
   box-sizing: border-box;
+  background: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #516cf0;
+  background: #fff;
 }
 
 .inputError {
-  border-color: #f97316;
+  border-color: #f28b25 !important;
 }
 
 .passwordWrapper {
@@ -58,37 +82,45 @@ input {
 
 .togglePassword {
   position: absolute;
-  right: 10px;
+  right: 18px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  font-size: 20px; /* Larger icon */
+  opacity: 0.6;
 }
 
 .error {
-  color: #f97316;
-  font-size: 12px;
+  color: #f28b25;
+  font-size: 14px;
+  margin-top: -15px; /* Pull error closer to the input above it */
 }
 
 .agreement {
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
+  line-height: 1.5;
+  color: #555;
+  margin: 10px 0;
 }
 
 .agreement a {
-  color: #f97316;
-  text-decoration: none;
+  color: #f28b25;
+  text-decoration: underline;
 }
 
+/* Larger Submit Button */
 .submitBtn {
-  background-color: #4f46e5;
+  background-color: #516cf0; /* Matching Login Blue */
   color: white;
-  padding: 12px;
+  padding: 18px;
   border: none;
   border-radius: 6px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .submitBtn:hover {
@@ -97,6 +129,18 @@ input {
 
 .loginText {
   text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
+  margin-top: 25px;
+  font-size: 16px;
+  color: #f28b25;
+}
+
+/* Responsive */
+@media (max-width: 550px) {
+  .registerSection {
+    padding: 40px 25px;
+    width: 95%;
+  }
+  .nameRow {
+    flex-direction: column;
+  }
 }

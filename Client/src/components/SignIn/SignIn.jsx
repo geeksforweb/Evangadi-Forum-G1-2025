@@ -13,6 +13,8 @@ const SignIn = () => {
 
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  // New loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,13 +32,17 @@ const SignIn = () => {
       return;
     }
 
+    setError(""); // Clear previous errors
+    setIsLoading(true); // Start loading
+
     try {
       const response = await axiosBase.post("/users/login", formData);
       localStorage.setItem("token", response.data.token);
-      setError("");
       navigate("/");
     } catch (err) {
-      setError("Invalid email or password");
+      setError(err.response?.data?.msg || "Invalid email or password");
+    } finally {
+      setIsLoading(false); // Stop loading regardless of success or failure
     }
   };
 
@@ -60,6 +66,7 @@ const SignIn = () => {
             placeholder="Email address"
             value={formData.email}
             onChange={handleChange}
+            disabled={isLoading} // Disable input while loading
           />
         </div>
 
@@ -71,30 +78,35 @@ const SignIn = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
+            disabled={isLoading} // Disable input while loading
           />
 
           <span
             className={styles.eye}
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => !isLoading && setShowPassword((prev) => !prev)}
             title={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? "🙈" : "👁️"}
           </span>
         </div>
-        {/* forgot password */}
+
         <p
           className={styles.forgot}
-          onClick={() => navigate("/forgot-password")}
+          onClick={() => !isLoading && navigate("/forgot-password")}
         >
           Forgot password?
         </p>
 
-        <button type="submit" className={styles.submitBtn}>
-          Login
+        {/* Change button text and disable it during loading */}
+        <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+          {isLoading ? <div className={styles.spinner}></div> : "Login"}
         </button>
       </form>
 
-      <p className={styles.create} onClick={() => navigate("/register")}>
+      <p
+        className={styles.create}
+        onClick={() => !isLoading && navigate("/register")}
+      >
         Create an account?
       </p>
     </div>

@@ -3,29 +3,83 @@
   justify-content: space-around;
   background: #3d475a;
   color: #fff;
-  padding: 40px 80px;
+  padding: 60px 80px;
   flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Base column style */
+.footer_col {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* First column specifically: Centers logo and socials vertically */
+.logo_col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns to left like image */
 }
 
 .logo_img {
-  height: 45px;
-  margin: auto;
+  height: 45px; /* Matches the slim profile in the image */
+  margin-bottom: 5px; /* Space between logo and icons */
+  display: block;
 }
 
-.footer_col h4 {
-  margin-bottom: 15px;
-}
-
-.footer_col p {
-  margin-bottom: 8px;
-  font-size: 14px;
+.socials {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
 .socials a {
-  margin: 5px;
   color: #fff;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
 }
+
 .socials a:hover {
-  color: #fe8402; /* Evangadi orange */
+  color: #fe8402; /* Evangadi Orange */
+}
+
+/* SVG Icon size adjustment */
+.socials svg {
+  font-size: 30px !important;
+}
+
+.footer_col h4 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.footer_col p {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #bdc3c7; /* Subtle grey like original site */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footer_col p:hover {
+  color: #fff;
+}
+
+/* Responsive: stack and center on mobile */
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .logo_col {
+    align-items: center;
+  }
 }

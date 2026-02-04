@@ -1,35 +1,55 @@
-.home_container{
-  margin: 120px auto;
-}
-
-.home_wrapper {
+.registerPage {
+  min-height: 100vh;
+  background-image: url("../../assets/forumhomeimages.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 35px 20px; /* Adjusted padding as per your previous request */
+  margin-top: 40px;
+}
+
+.registerContent {
+  width: 100%;
+  max-width: 1500px;
+  display: flex;
+  background: transparent;
+  gap: 30px; 
   align-items: flex-start;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 50px;
-  padding: 0 20px;
+  margin-left: 150px;
 }
 
-.register_column {
+/* The wrapper for the SignUp component */
+.signUpSection {
   flex: 1;
-  max-width: 500px;
-  background-color: #fff;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
+  /* The SignUp component itself (the card) handles its own white background and shadow */
 }
 
-.about_column {
-  flex: 1;
-  max-width: 550px;
+.aboutWrapper {
+  flex: 1.4;
+  margin:50px auto;
+  padding-top: 20px;
 }
 
-/* Responsive adjustment for mobile */
-@media (max-width: 768px) {
-  .home_wrapper {
+.aboutContent {
+  color: #333;
+}
+
+.bgShape {
+  display: none !important;
+}
+
+/* Responsive: stack them on mobile */
+@media (max-width: 950px) {
+  .registerContent {
     flex-direction: column;
     align-items: center;
+    gap: 40px;
+  }
+  .signUpSection {
+    max-width: 100%;
+    min-width: 100%;
   }
 }

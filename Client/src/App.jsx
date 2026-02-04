@@ -11,6 +11,7 @@ import Footer from "./components/footer/Footer";
 import QuestionDetailPage from './pages/QueDetailPostAns/QuestionDetailPage'
 import ForgotPassword from './pages/Forgotpassword/ForgotPassword';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
+import Instructions from './pages/Howitwork/Instructions';
 import "./app.css"
 /* EXPORT THE CONTEXT */
 export const AppState = createContext();
@@ -74,6 +75,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/Instruction" element={<Instructions />} /> 
 
         {/* prtected routes */}
         <Route

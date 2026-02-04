@@ -77,10 +77,12 @@
 .question-text p {
   font-size: 16px;
   margin-bottom: 5px;
+  margin-left: 5px;
 }
 
 .question-text small {
   color: #555;
+  margin-left: 5px;
 }
 
 .arrow {

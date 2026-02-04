@@ -74,7 +74,7 @@ const Register = () => {
       <p className={Classes.signInPrompt}>
         Already have an account?{" "}
         <Link to="/login" className={Classes.signInLink}>
-          Sign in
+          Login
         </Link>
       </p>
 

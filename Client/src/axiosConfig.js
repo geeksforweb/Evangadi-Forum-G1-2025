@@ -1,7 +1,8 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api",
-  // baseURL: "https://forumbe.selomieweb.com/api",
+  // baseURL: "http://localhost:8000/api",
+  baseURL: "https://forum.backend.gashawtech.com/api",
+
 });
 // Automatically attach token
 instance.interceptors.request.use(

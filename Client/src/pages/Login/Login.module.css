@@ -1,78 +1,53 @@
-/* Main page wrapper */
 .loginPage {
   min-height: 100vh;
-  background: #f8f8f8;
+  /* Ensure this points to your background SVG with the blue/pink shapes */
+  background-image: url("../../assets/forumhomeimages.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 60px 20px;
+    /* margin-top: 40px; */
+
 }
 
-/* Main container: row on large screens */
 .loginContent {
   width: 100%;
-  max-width: 1200px;
-  display: flex;           /* flex row by default */
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* SignIn Section */
-.signInSection {
-  flex: 1;
-  margin-left: 55px;
-  padding: 15px auto;
-  background-color: #ffffff;
-}
-
-/* About Section */
-.aboutWrapper {
-  flex: 1;
-  position: relative;
+  max-width: 1500px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  background: transparent;
+  gap: 30px; 
+  align-items: flex-start;
+  margin-left: 150px;
 }
 
-/* About content */
+.aboutWrapper {
+  flex: 1.4; /* Gives more room for the Evangadi Networks text */
+  margin:50px auto;
+
+  padding-top: 20px;
+}
+
 .aboutContent {
-  position: relative;
-  z-index: 1;
-  padding: 40px 25px;
   color: #333;
 }
 
-/* Background shape (optional) */
+/* Remove all traces of the old overlapping shapes */
 .bgShape {
-  position: absolute;
-  top: -20%;
-  left: -20%;
-  width: 140%;
-  height: 140%;
-  transform: rotate(-5deg);
-  z-index: 0;
+  display: none !important;
 }
 
-/* Responsive: stacked column for small screens */
-@media (max-width: 900px) {
+/* Responsive: stack them on mobile */
+@media (max-width: 950px) {
   .loginContent {
-    flex-direction: column;  /* stack vertically */
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
   }
-
-  .aboutWrapper {
-    width: 100%;
-  }
-
-  .bgShape {
-    display: none;           /* hide background shape on small screens */
-  }
-
-  .aboutContent {
-    padding: 40px 25px;
-    text-align: center;
+  .signInSection {
+    max-width: 100%;
+    min-width: 100%;
   }
 }
-

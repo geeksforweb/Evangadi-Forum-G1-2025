@@ -58,9 +58,7 @@ const ResetPassword = () => {
       <div className={styles.loginCard}>
         <h2 className={styles.title}>Reset Password</h2>
 
-        <p className={styles.description}>
-          Enter your new password below.
-        </p>
+        <p className={styles.description}>Enter your new password below.</p>
 
         {error && <p className={styles.error}>{error}</p>}
         {message && <p className={styles.success}>{message}</p>}
@@ -80,7 +78,7 @@ const ResetPassword = () => {
               onClick={() => setShowPassword((prev) => !prev)}
               title={showPassword ? "Hide password" : "Show password"}
             >
-              {showPassword ? "🙈" : "👁"}
+              {showPassword ? "🙈" : "👁️"}
             </span>
           </div>
 
@@ -98,7 +96,7 @@ const ResetPassword = () => {
               onClick={() => setShowConfirmPassword((prev) => !prev)}
               title={showConfirmPassword ? "Hide password" : "Show password"}
             >
-              {showConfirmPassword ? "🙈" : "👁"}
+              {showConfirmPassword ? "🙈" : "👁️"}
             </span>
           </div>
 
@@ -108,11 +106,7 @@ const ResetPassword = () => {
             </ul>
           </div>
 
-          <button
-            className={styles.submitBtn}
-            type="submit"
-            disabled={loading}
-          >
+          <button className={styles.submitBtn} type="submit" disabled={loading}>
             {loading ? "Resetting..." : "Reset Password"}
           </button>
         </form>
