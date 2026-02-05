@@ -14,6 +14,8 @@ const Register = () => {
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  // NEW: Loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   const validateForm = () => {
     const errors = {};
@@ -52,6 +54,10 @@ const Register = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    // Start loading
+    setIsLoading(true);
+    setErrors({});
+
     try {
       await instance.post("/users/register", {
         userName: userNameDom.current.value,
@@ -61,10 +67,14 @@ const Register = () => {
         password: passwordDom.current.value,
       });
       navigate("/login");
+      // navigate("/");
     } catch (error) {
       setErrors({
         server: error.response?.data?.msg || "Registration failed",
       });
+    } finally {
+      // Stop loading regardless of success or failure
+      setIsLoading(false);
     }
   };
 
@@ -85,6 +95,7 @@ const Register = () => {
           type="text"
           placeholder="Username"
           ref={userNameDom}
+          disabled={isLoading}
           className={errors.username ? Classes.inputError : ""}
         />
         {errors.username && (
@@ -96,12 +107,14 @@ const Register = () => {
             type="text"
             placeholder="First name"
             ref={firstNameDom}
+            disabled={isLoading}
             className={errors.firstname ? Classes.inputError : ""}
           />
           <input
             type="text"
             placeholder="Last name"
             ref={lastNameDom}
+            disabled={isLoading}
             className={errors.lastname ? Classes.inputError : ""}
           />
         </div>
@@ -116,6 +129,7 @@ const Register = () => {
           type="email"
           placeholder="Email address"
           ref={emailDom}
+          disabled={isLoading}
           className={errors.email ? Classes.inputError : ""}
         />
         {errors.email && (
@@ -127,11 +141,12 @@ const Register = () => {
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             ref={passwordDom}
+            disabled={isLoading}
             className={errors.password ? Classes.inputError : ""}
           />
           <span
             className={Classes.togglePassword}
-            onClick={() => setShowPassword((prev) => !prev)}
+            onClick={() => !isLoading && setShowPassword((prev) => !prev)}
           >
             {showPassword ? "🙈" : "👁️"}
           </span>
@@ -152,8 +167,16 @@ const Register = () => {
           .
         </p>
 
-        <button type="submit" className={Classes.submitBtn}>
-          Agree and Join
+        <button
+          type="submit"
+          className={Classes.submitBtn}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <div className={Classes.spinner}></div>
+          ) : (
+            "Agree and Join"
+          )}
         </button>
       </form>
 

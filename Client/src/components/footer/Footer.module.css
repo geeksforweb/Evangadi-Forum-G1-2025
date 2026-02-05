@@ -1,10 +1,17 @@
 .footer {
-  display: flex;
-  justify-content: space-around;
   background: #3d475a;
   color: #fff;
-  padding: 60px 80px;
+  padding: 60px 80px 20px 80px; /* Reduced bottom padding to fit credit */
+  display: flex;
+  flex-direction: column; /* Stack columns and bottom credit */
+  gap: 40px;
+}
+
+.footer_inner {
+  display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
+  width: 100%;
   gap: 40px;
 }
 
@@ -16,16 +23,14 @@
   flex-direction: column;
 }
 
-/* First column specifically: Centers logo and socials vertically */
+/* First column specifically */
 .logo_col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Aligns to left like image */
+  align-items: flex-start;
 }
 
 .logo_img {
-  height: 45px; /* Matches the slim profile in the image */
-  margin-bottom: 5px; /* Space between logo and icons */
+  height: 45px;
+  margin-bottom: 25px;
   display: block;
 }
 
@@ -43,10 +48,9 @@
 }
 
 .socials a:hover {
-  color: #fe8402; /* Evangadi Orange */
+  color: #fe8402;
 }
 
-/* SVG Icon size adjustment */
 .socials svg {
   font-size: 30px !important;
 }
@@ -61,7 +65,7 @@
 .footer_col p {
   margin-bottom: 12px;
   font-size: 14px;
-  color: #bdc3c7; /* Subtle grey like original site */
+  color: #bdc3c7;
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -70,16 +74,38 @@
   color: #fff;
 }
 
+/* NEW: Developed by Styling */
+.footer_bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.footer_bottom p {
+  font-size: 14px;
+  color: #bdc3c7;
+}
+
+.footer_bottom span {
+  color: #fe8402; /* Highlight your name in orange */
+  font-weight: 600;
+}
+
 /* Responsive: stack and center on mobile */
 @media (max-width: 768px) {
   .footer {
-    padding: 40px 20px;
+    padding: 40px 20px 20px 20px;
+  }
+  
+  .footer_inner {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  
+
   .logo_col {
     align-items: center;
+    margin-bottom: 20px;
   }
 }

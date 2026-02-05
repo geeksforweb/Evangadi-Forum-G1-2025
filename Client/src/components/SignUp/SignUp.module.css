@@ -1,12 +1,10 @@
-
-
 .registerSection {
   width: 100%;
-  max-width: 520px; 
+  max-width: 520px;
   /* Reduced vertical margin from 40px to 20px */
   margin: 50px auto;
   /* Reduced top/bottom padding to 35px (was 60px) */
-  padding: 15px 30px; 
+  padding: 15px 30px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
@@ -56,7 +54,7 @@
 
 /* Taller and larger inputs */
 input {
-  padding: 16px 20px; 
+  padding: 16px 20px;
   border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 16px; /* Increased font size */
@@ -142,5 +140,31 @@ input:focus {
   }
   .nameRow {
     flex-direction: column;
+  }
+}
+
+/* // spinner styles for loading state */
+
+.submitBtn:disabled {
+  background-color: #a5b4fc; /* Lighter/Faded Blue */
+  cursor: not-allowed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The loading spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
